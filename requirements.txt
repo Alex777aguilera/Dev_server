@@ -1,0 +1,11 @@
+Django==3.0.10
+django-mssql-backend==2.8.1
+django-cors-headers==3.11.0
+django-environ==0.8.1
+django-rest-swagger==2.2.0
+djangorestframework==3.11.1
+djoser==2.1.0
+drf-yasg==1.20.0
+pyodbc==4.0.31
+fontawesomefree==6.1.2
+psycopg2==2.9.3

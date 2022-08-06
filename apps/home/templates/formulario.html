@@ -1,0 +1,113 @@
+{% extends "principal_base.html" %}
+
+  {% block title %}
+    Principal
+  {% endblock title %}
+
+{% load static %}
+{% block content %}
+
+
+<section class="pt-sm-5 pb-5 position-relative bg-gradient-dark">
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 text-start mb-5 mt-5">
+        <h3 class="text-white z-index-1 position-relative">Becarios.</h3>
+        <p class="text-white opacity-8 mb-0">Ten la capacidad de ser unos de los becarios en el extranjero.</p>
+      </div>
+    </div>
+   
+    <div class="row mt-4">
+      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        <div class="card card-profile overflow-hidden z-index-2">
+        <!-------->
+        
+                  <h3 class="text-center">Contact us</h3>
+                  <form role="form" id="contact-form" method="post" autocomplete="off">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>First Name</label>
+                          <div class="input-group mb-4">
+                            <input class="form-control" placeholder="" aria-label="First Name..." type="text" >
+                          </div>
+                        </div>
+                        <div class="col-md-6 ps-2">
+                          <label>Last Name</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="" aria-label="Last Name..." >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <label>Email Address</label>
+                        <div class="input-group">
+                          <input type="email" class="form-control" placeholder="" >
+                        </div>
+                      </div>
+                       <!--  Datepicker -->
+<div class="form-group mb-4">
+    <div class="col-md-6 mx-auto">
+      <div class="row">
+        <div class="col-lg-6 mx-auto col-md-8 col-sm-5">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+            <input class="form-control datepicker" placeholder="Please select date" type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+                      <div class="form-group mb-4">
+                        <label>Your message</label>
+                        <textarea name="message" class="form-control" id="message" rows="4"></textarea>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <button type="submit" class="btn bg-gradient-dark w-100">Send Message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                
+             
+            
+          
+          
+            
+        <!-------->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="position-absolute w-100 bottom-0 mn-n1">
+    <svg width="100%" viewBox="0 -1 1920 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>wave-up</title>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(0.000000, 5.000000)" fill="#FFFFFF" fill-rule="nonzero">
+          <g id="wave-up" transform="translate(0.000000, -5.000000)">
+            <path d="M0,70 C298.666667,105.333333 618.666667,95 960,39 C1301.33333,-17 1621.33333,-11.3333333 1920,56 L1920,165 L0,165 L0,70 Z" fill="#f8f9fa"></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    if (document.querySelector(".datepicker")) {
+       flatpickr(".datepicker", {});
+    }
+  </script>
+{% endblock js %}
