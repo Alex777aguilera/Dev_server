@@ -11,8 +11,18 @@ urlpatterns = [
     path('term_conditions', term_conditions, name='term_conditions'),
     path('admisiones', admisiones, name='admisiones'),
     path('AJAXAdmisiones', AJAXAdmisiones, name='AJAXAdmisiones'),
+    path('AJAXASolicitud', AJAXASolicitud, name='AJAXASolicitud'),
+    ###### Carreras #######
     path('carreras', carreras, name='carreras'),
     path('medicina', medicina, name='medicina'),
+    path('aprobaciones', aprobaciones, name='aprobaciones'),
+    path('sistemas', sistemas, name='sistemas'),
+    path('electronica', electronica, name='electronica'),
+    path('derecho', derecho, name='derecho'),
+    path('agronomia', agronomia, name='agronomia'),
+    path('industrial', industrial, name='industrial'),
+    path('psicologia', psicologia, name='psicologia'),
+    path('mecatronica', mecatronica, name='mecatronica'),
 
     # Matches any html file
     # re_path(r'^.*\.*', views.pages, name='pages'),

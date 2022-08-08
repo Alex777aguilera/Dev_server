@@ -44,7 +44,10 @@ def cerrar_secion(request):
 
 @login_required(login_url="/")
 def admin(request):
-    context = {'segment': 'index'}
+    soli = Solicitud.objects.all()
+    carreras = Carrera.objects.all()
+    postulantes = Postulante.objects.all()
+    context = {'solicitudes': soli, 'cantS':soli.__len__, 'Can_carreras':carreras.__len__, 'postulantes':postulantes.__len__}
    
     html_template = loader.get_template('admin.html')
     

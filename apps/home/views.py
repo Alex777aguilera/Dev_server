@@ -52,7 +52,7 @@ def postulante(request):
     return render(request, 'formulario.html', ctx)
 
 def Send_diary(request):
-    subject = "Grcias estimado"
+    subject = "Gracias estimado"
     mail = request.get('correo')
     message = "Gracias por suscribirte a nuestro diario."
     send_mail(subject, message, EMAIL_HOST_USER, [mail], fail_silently = False)
@@ -63,7 +63,7 @@ def term_conditions(request):
     
     return render(request, 'term_conditions.html')
 
-@login_required
+@login_required(login_url="/")
 def admisiones(request):
     carreras = Carrera.objects.all()
     ctx = {'carreras': carreras}
@@ -78,13 +78,56 @@ def admisiones(request):
         ctx = {'carreras': carreras, 'menssage':'Datos Guardados con exito!!'}
     return render(request, 'admisiones.html', ctx)
 
+@login_required(login_url="/")
+def aprobaciones(request):
+    solicitudes = Solicitud.objects.all()
+    ctx = {'solicitudes':solicitudes}
+    if request.method == 'POST':
+        print(request.POST)
+    
+    return render(request, 'aprobaciones.html',ctx)
+
 def carreras(request):
     
     
     return render(request, 'carreras.html')
 
-
 def medicina(request):
     
     
     return render(request, 'medicina.html')
+
+def sistemas(request):
+    
+    
+    return render(request, 'sistemas.html')
+
+def electronica(request):
+    
+    
+    return render(request, 'electronica.html')
+
+def agronomia(request):
+    
+    
+    return render(request, 'agronomia.html')
+
+def derecho(request):
+    
+    
+    return render(request, 'derecho.html')
+
+def industrial(request):
+    
+    
+    return render(request, 'industrial.html')
+
+def psicologia(request):
+    
+    
+    return render(request, 'psicologia.html')
+
+def mecatronica(request):
+    
+    
+    return render(request, 'mecatronica.html')

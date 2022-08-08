@@ -12,16 +12,6 @@ from rest_framework.response import Response
 from .models import *
 
 
-class OutputSerializer_Admisiones(serializers.ModelSerializer):
-    # puesto = serializers.CharField(source="puesto.descripcion_puesto")
-
-    class Meta:
-        model = Admisiones
-        fields = '__all__'
-
-
-
-
 def AJAXAdmisiones(request):
 	if request.method == "GET" and request.is_ajax():
 		print('entro al ajax')
@@ -35,6 +25,27 @@ def AJAXAdmisiones(request):
 				return HttpResponse(json.dumps(lista))
 			else:
 				lista= [{'Error':'No hay Admisiones para esta carrera'}]
+			return HttpResponse(json.dumps(lista))
+			
+		else:
+			lista= [{'Error':'Data None'}]
+			return HttpResponse(json.dumps(lista))
+
+
+def AJAXASolicitud(request):
+	if request.method == "GET" and request.is_ajax():
+		print('entro al ajax de solicitud')
+		lista =[]
+		if request.GET.get('id_solicitud') is not None:
+			id_solicitud = request.GET.get('id_solicitud')
+			
+			if Solicitud.objects.filter(pk=int(id_solicitud)).exists(): 
+				data= Solicitud.objects.filter(pk=int(id_solicitud))
+				lista = [{'nombres':data[0].postulante.nombres+" "+data[0].postulante.apellidos,'correo':data[0].postulante.correo,'cel':data[0].postulante.cel, 'fecha':str(data[0].fecha_registro)}]
+				# lista = [{'admision':data[0].postulante.nombres, 'fecha':str(data[0].fecha_registro)}]
+				return HttpResponse(json.dumps(lista))
+			else:
+				lista= [{'Error':'No hay Solicitud para esta carrera'}]
 			return HttpResponse(json.dumps(lista))
 			
 		else:
