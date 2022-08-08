@@ -83,8 +83,13 @@ def aprobaciones(request):
     solicitudes = Solicitud.objects.all()
     ctx = {'solicitudes':solicitudes}
     if request.method == 'POST':
-        print(request.POST)
-    
+        estado = False
+        id_solicitud = Solicitud.objects.get(pk=int(request.POST.get('solicitud')))
+        user = request.user
+        if request.POST.get('v_aprobado') == 'on':
+            estado = True
+            createElemenA(id_solicitud.pk,user,estado)
+        ctx = {'solicitudes':solicitudes, 'menssage': 'Datos Guardados con exito!!'}
     return render(request, 'aprobaciones.html',ctx)
 
 def carreras(request):

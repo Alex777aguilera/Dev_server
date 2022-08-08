@@ -34,18 +34,18 @@ def AJAXAdmisiones(request):
 
 def AJAXASolicitud(request):
 	if request.method == "GET" and request.is_ajax():
-		print('entro al ajax de solicitud')
+		
 		lista =[]
 		if request.GET.get('id_solicitud') is not None:
 			id_solicitud = request.GET.get('id_solicitud')
 			
 			if Solicitud.objects.filter(pk=int(id_solicitud)).exists(): 
 				data= Solicitud.objects.filter(pk=int(id_solicitud))
-				lista = [{'nombres':data[0].postulante.nombres+" "+data[0].postulante.apellidos,'correo':data[0].postulante.correo,'cel':data[0].postulante.cel, 'fecha':str(data[0].fecha_registro)}]
+				lista = [{'nombres':data[0].postulante.nombres+" "+data[0].postulante.apellidos,'correo':data[0].postulante.correo,'cel':data[0].postulante.cel, 'fecha':str(data[0].fecha_registro), 'carrera':data[0].admision.carrera.descripcion_carrera, 'des_ad':data[0].admision.descripcion_adm, 'requisitos':data[0].admision.requisitos}]
 				# lista = [{'admision':data[0].postulante.nombres, 'fecha':str(data[0].fecha_registro)}]
 				return HttpResponse(json.dumps(lista))
 			else:
-				lista= [{'Error':'No hay Solicitud para esta carrera'}]
+				lista= [{'Error':'No hay Solicitud para esta postulante'}]
 			return HttpResponse(json.dumps(lista))
 			
 		else:

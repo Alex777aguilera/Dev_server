@@ -18,3 +18,9 @@ def createElemenS(id_admision, id_p, *args):
    
     return obj
 
+def createElemenA(id_solicitud, user, estado, *args):
+    obj = Aprobacion(solicitd = Solicitud.objects.get(pk = id_solicitud), usuario_registro = user, estado_aprobacion = estado)
+    obj.save()
+   
+    return obj
+

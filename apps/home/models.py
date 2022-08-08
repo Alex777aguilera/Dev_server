@@ -1,4 +1,3 @@
-from msilib.schema import Class
 from django.db import models
 from django.contrib.auth.models import *
 import datetime, time
@@ -48,4 +47,4 @@ class Aprobacion(models.Model):
     fecha_registro = models.DateField(auto_now = True)
 
     def __str__(self):
-        return f'{self.pk,self.admision}'
+        return f'{self.pk,self.solicitd.postulante.nombres +""+self.solicitd.postulante.apellidos, self.estado_aprobacion, self.fecha_registro}'
