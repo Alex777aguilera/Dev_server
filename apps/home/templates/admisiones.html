@@ -1,0 +1,118 @@
+{% extends "base-admin.html" %}
+
+  {% block title %}
+    Admisiones
+  {% endblock title %}
+
+{% load static %}
+{% block content %}
+
+
+<section class="pt-sm-5 pb-5 position-relative bg-gradient-dark">
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 text-start mb-5 mt-5">
+        <h3 class="text-white z-index-1 position-relative">Sistema de Admisiones.</h3>
+        <p class="text-white opacity-8 mb-0">Ingreso de datos de admisones <span><i class="fa-solid fa-building-columns"></i> U-T-A</span></p>
+      </div>
+    </div>
+    <center>
+      {% if menssage %}
+      <div class="alert bg-gradient-warning alert-dismissible fade show col-sm-9 my-0" role="alert">
+        <strong class="text-white">En hora buena!</strong> {{menssage}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      {% endif %}      
+    </center>
+    <div class="row mt-4">
+      <div class="col-lg-9 mx-auto d-flex justify-content-center flex-column">
+        <div class="card card-profile overflow-hidden z-index-2">
+        <!-------->
+        
+                  <h3 class="text-center mt-4">Registro Admision.</h3>
+                  <form role="form" id="contact-form" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        
+                      <div class="row">
+                        
+                        <div class="form-group mb-4 col-md-6 ps-2">
+                            <label>Descripcion</label><i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                            <textarea class="form-control" id="message" rows="3" name="descripcion_adm" required></textarea>
+                        </div>
+                        <div class="form-group mb-4 col-md-6 ps-2">
+                            <label>Requisitos</label><i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                            <textarea  class="form-control" id="message" rows="3" name="requisitos" required></textarea>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Carrera</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                            <select class="form-select" data-live-search="true" id="id_carrera" name="carrera" required>
+                                <option value="">-Seleccione-</option>
+                                {% for carrera in carreras %}
+                                <option value="{{carrera.pk}}">{{carrera.descripcion_carrera}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- date piquer -->
+                        <div class="col-sm-6 form-group">
+                          <label>Fecha expira</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                          
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                              <input class="form-control" placeholder="Please select date" type="text" id="datepicker1" name="fecha_expira" required>
+                            </div>
+
+                        </div> 
+                        <!-- Fin date piker-->
+                      </div>
+                      
+                      <div class="row">
+                        
+                        <center>
+                        <div class="col-md-10 pt-5">
+                          <button type="submit" class="btn bg-gradient-dark w-50 ">Enviar</button>
+                        </div>
+                      </center>
+                      </div>
+                    </div>
+                  </form>
+                
+             
+            
+          
+          
+            
+        <!-------->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="position-absolute w-100 bottom-0 mn-n1">
+    <svg width="100%" viewBox="0 -1 1920 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>wave-up</title>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(0.000000, 5.000000)" fill="#FFFFFF" fill-rule="nonzero">
+          <g id="wave-up" transform="translate(0.000000, -5.000000)">
+            <path d="M0,70 C298.666667,105.333333 618.666667,95 960,39 C1301.33333,-17 1621.33333,-11.3333333 1920,56 L1920,165 L0,165 L0,70 Z" fill="#f8f9fa"></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    $ (document).ready( function() {
+$('#datepicker1').datepicker({ dateFormat: 'YY-MM-DD' });
+});
+  </script>
+{% endblock js %}

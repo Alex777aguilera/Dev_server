@@ -9,3 +9,4 @@ drf-yasg==1.20.0
 pyodbc==4.0.31
 fontawesomefree==6.1.2
 psycopg2==2.9.3
+Unipath==1.1

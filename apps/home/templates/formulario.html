@@ -1,7 +1,7 @@
 {% extends "principal_base.html" %}
 
   {% block title %}
-    Principal
+    Postulate
   {% endblock title %}
 
 {% load static %}
@@ -14,65 +14,116 @@
     <div class="row">
       <div class="col-md-8 text-start mb-5 mt-5">
         <h3 class="text-white z-index-1 position-relative">Becarios.</h3>
-        <p class="text-white opacity-8 mb-0">Ten la capacidad de ser unos de los becarios en el extranjero.</p>
+        <p class="text-white opacity-8 mb-0">Ten la capacidad de realizar tus sueños, ingresando <span><i class="fa-solid fa-building-columns"></i> U-T-A</span></p>
       </div>
     </div>
-   
+    <center>
+      {% if menssage %}
+      <div class="alert bg-gradient-warning alert-dismissible fade show col-sm-9 my-0" role="alert" time="1500" >
+        <strong class="text-white">En hora buena!</strong> {{menssage}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      {% endif %}      
+    </center>
     <div class="row mt-4">
-      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+      <div class="col-lg-9 mx-auto d-flex justify-content-center flex-column">
         <div class="card card-profile overflow-hidden z-index-2">
         <!-------->
         
-                  <h3 class="text-center">Contact us</h3>
+                  <h3 class="text-center mt-4">Ingresa tus datos.</h3>
                   <form role="form" id="contact-form" method="post" autocomplete="off">
+                    {% csrf_token %}
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                          <label>First Name</label>
+                          <label>Primer Nombre</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
                           <div class="input-group mb-4">
-                            <input class="form-control" placeholder="" aria-label="First Name..." type="text" >
+                            <input class="form-control" placeholder="" aria-label="First Name..." type="text" name="nombres" required>
                           </div>
                         </div>
                         <div class="col-md-6 ps-2">
-                          <label>Last Name</label>
+                          <label>Primer Apellido</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="" aria-label="Last Name..." >
+                            <input type="text" class="form-control" placeholder="" aria-label="Last Name..." name="apellidos" required>
                           </div>
                         </div>
-                      </div>
-                      <div class="mb-4">
-                        <label>Email Address</label>
-                        <div class="input-group">
-                          <input type="email" class="form-control" placeholder="" >
-                        </div>
-                      </div>
-                       <!--  Datepicker -->
-<div class="form-group mb-4">
-    <div class="col-md-6 mx-auto">
-      <div class="row">
-        <div class="col-lg-6 mx-auto col-md-8 col-sm-5">
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-            <input class="form-control datepicker" placeholder="Please select date" type="text" >
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-                      <div class="form-group mb-4">
-                        <label>Your message</label>
-                        <textarea name="message" class="form-control" id="message" rows="4"></textarea>
                       </div>
                       <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-check form-switch mb-4">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
+                        <div class="col-md-6">
+                          <label>Mail</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                          <div class="input-group mb-4">
+                            <input class="form-control" placeholder="" aria-label="Mail..." type="mail" name="correo" required >
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <button type="submit" class="btn bg-gradient-dark w-100">Send Message</button>
+                        <div class="col-md-6 ps-2">
+                          <label># Identidad</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="" aria-label="Identidad..." name="identidad" required >
+                          </div>
                         </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Carrera</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                            <select class="form-select" data-live-search="true" id="id_carrera" name="carrera" onchange="dataCarrera(this.value)" required>
+                                <option value="">-Seleccione-</option>
+                                {% for carrera in carreras %}
+                                <option value="{{carrera.pk}}">{{carrera.descripcion_carrera}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Telefono</label> <i class="fas fa-asterisk" style="font-size: 0.7em; color: red;"></i>
+                          <div class="input-group mb-4">
+                            <input class="form-control" placeholder="" aria-label="Cel..." type="text" name="cel" required >
+                          </div>
+                        </div>
+                      
+                      </div>
+                      <div class="row">
+                        <div class="input-group mb-5 col-md-6">
+                          <label class="input-group-text" for="inputGroupFile01"><i class="fa-solid fa-upload"></i></label>
+                          <input type="file" class="form-control" id="inputGroupFile01" name="archivo" required>
+                        </div>
+
+                      </div>
+                      <!---->
+                      
+                        <div class="row mb-5">
+                          <hr class="bg-dark">
+                          <div class="col-md-6">
+                            <label style="display: none" id="id_div1"><i class="fa-solid fa-landmark"></i> Detalle de Admision</label> 
+                            <div id="id_admision">
+                              
+                            </div>
+                          </div>
+                          <div class="col-md-6 ">
+                            <label style="display: none" id="id_div2"><i class="fa-solid fa-people-roof"></i> Requisitos</label>
+                            <p id="id_requisitos">
+                              
+                            </p>
+                          </div>
+                          <div class="col-ms-3  mt-4">
+                            <label style="display: none" id="id_div3"><i class="fa-solid fa-calendar"></i> Fecha Limite</label>
+                            <p id="id_fli">
+                              
+                            </p>
+                          </div>
+                        </div>
+                        
+                      <!---->
+                      <div class="row">
+                        <div class="col-md-12 mb-4">
+                          <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="" required>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Estoy de acuerdo con  <a class="nav-link text-dark" href="{% url 'term_conditions' %}" target="_blank"><u>Terminos y condiciones.</u></a></label>
+                          </div>
+                        </div>
+                        <center>
+                        <div class="col-md-10">
+                          <button type="submit" class="btn bg-gradient-dark w-50 ">Enviar</button>
+                        </div>
+                      </center>
                       </div>
                     </div>
                   </form>
@@ -106,8 +157,45 @@
 
 {% block js %}
 <script>
-    if (document.querySelector(".datepicker")) {
-       flatpickr(".datepicker", {});
-    }
+    $ (document).ready( function() {
+$('#datepicker1') .datepicker();
+});
+function dataCarrera(a)
+{
+  
+  $.ajax({
+    url: "{% url 'AJAXAdmisiones' %}",
+    type: "get",
+    data: {
+        'id_carrera': a,
+    },
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function(data) {
+        $.each(data, function(key, val) {
+          if(val.Error){
+            document.getElementById('id_div1').style.display = "none";
+            document.getElementById('id_div2').style.display = "none";
+            document.getElementById('id_div3').style.display = "none";
+            document.getElementById('id_admision').innerHTML = '';            document.getElementById('id_requisitos').innerHTML = '';
+            document.getElementById('id_fli').innerHTML = '';
+            alert(val.Error);
+          }else{
+            
+            document.getElementById('id_div1').style.display = "block";
+            document.getElementById('id_div2').style.display = "block";
+            document.getElementById('id_div3').style.display = "block";
+            document.getElementById('id_admision').innerHTML = val.descripcion_adm;
+            document.getElementById('id_requisitos').innerHTML = val.requisitos;
+            document.getElementById('id_fli').innerHTML = val.fecha;
+          }
+          
+          
+            
+        });
+    },
+   
+  });     
+}
   </script>
 {% endblock js %}
