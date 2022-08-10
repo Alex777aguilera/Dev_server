@@ -44,7 +44,7 @@ def cerrar_secion(request):
 
 @login_required(login_url="/")
 def admin(request):
-    soli = Solicitud.objects.all()
+    soli = Solicitud.objects.all().exclude(estado_solicitud=True)
     carreras = Carrera.objects.all()
     postulantes = Postulante.objects.all()
     context = {'solicitudes': soli, 'cantS':soli.__len__, 'Can_carreras':carreras.__len__, 'postulantes':postulantes.__len__}

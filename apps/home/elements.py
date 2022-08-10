@@ -20,6 +20,7 @@ def createElemenS(id_admision, id_p, *args):
 
 def createElemenA(id_solicitud, user, estado, *args):
     obj = Aprobacion(solicitd = Solicitud.objects.get(pk = id_solicitud), usuario_registro = user, estado_aprobacion = estado)
+    Solicitud.objects.filter(pk=id_solicitud).update(estado_solicitud=True)
     obj.save()
    
     return obj

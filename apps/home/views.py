@@ -1,3 +1,4 @@
+from ast import For
 from django.shortcuts import render
 
 from django import template
@@ -80,7 +81,8 @@ def admisiones(request):
 
 @login_required(login_url="/")
 def aprobaciones(request):
-    solicitudes = Solicitud.objects.all()
+    solicitudes = Solicitud.objects.all().exclude(estado_solicitud=True)
+    
     ctx = {'solicitudes':solicitudes}
     if request.method == 'POST':
         estado = False

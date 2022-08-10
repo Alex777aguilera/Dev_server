@@ -35,9 +35,9 @@ class Solicitud(models.Model):
     postulante = models.ForeignKey(Postulante, on_delete = models.CASCADE, null = False, blank = False)
     admision = models.ForeignKey(Admisiones, on_delete = models.CASCADE, null = False, blank = False)
     fecha_registro = models.DateField(auto_now = True)
-
+    estado_solicitud = models.BooleanField(default = False)
     def __str__(self):
-        return f'{self.pk,self.admision.pk, self.admision.carrera.descripcion_carrera}'
+        return f'{self.pk,self.admision.pk, self.admision.carrera.descripcion_carrera, self.estado_solicitud}'
 
 
 class Aprobacion(models.Model):
