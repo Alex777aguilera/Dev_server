@@ -1,0 +1,188 @@
+{% extends "base-admin.html" %}
+
+  {% block title %}
+    Aprobaciones
+  {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+<!-- -------- START HEADER 8 w/ card over right bg image ------- -->
+<header>
+    <div class="page-header min-vh-85 mt-5">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="{% static '/assets/img/card-2.jpg' %}" alt="image">
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 d-flex justify-content-center flex-column">
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <center>
+                {% if menssage %}
+                <div class="alert bg-gradient-warning alert-dismissible fade show col-lg-11 my-0" role="alert" time="1500" >
+                  <strong class="text-white"> {{menssage}}</strong> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                {% endif %}      
+              </center>
+              <div class="text-center">
+                <h3 class="text-gradient text-primary">Sistema Aprobaciones</h3>
+                <p class="mb-0">
+                  Sistema de control de aprobaciones de los solicitantes.
+                </p>
+              </div>
+              <form id="contact-form" method="post" autocomplete="off">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="card-body pb-2">
+                    <div class="row">
+                      <label for="exampleDataList" class="form-label"><i class="fa-solid fa-check-to-slot"></i>&nbsp;Solicitudes</label>
+                      <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar" onchange="dataSolicitud(this.value)" name="solicitud" required>
+                      <datalist id="datalistOptions">
+                          <option value="">-Seleccione-</option>
+                          {% for soli in solicitudes %}
+                          <option value="{{soli.pk}}">{{soli.postulante.nombres}} {{soli.postulante.apellidos}} | {{soli.admision.carrera.descripcion_carrera}}</option>
+                          {% endfor %}
+                      </datalist>
+                      
+                    </div>
+                    <div class="col-md-12 mb-4 mt-3">
+                      <div class="form-check form-switch mb-4">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Aprobado </label>
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="v_aprobado" required>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <!--   -->
+                  <div class="row mb-2">
+                    <hr class="bg-dark">
+                    <div class="col-md-4">
+                      <label style="display: none" id="nombre_t"><i class="fa-solid fa-user-graduate"></i> Postulante</label> 
+                      <div id="nombre">
+                        
+                      </div>
+                    </div>
+                    <div class="col-md-4 ">
+                      <label style="display: none" id="correo_p"><i class="fa-solid fa-envelope"></i> Correo</label>
+                      <p id="correo">
+                        
+                      </p>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                      <label style="display: none" id="cel_p"><i class="fa-solid fa-mobile-screen-button"></i>Celular</label>
+                      <p id="cel">
+                        
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    
+                    <div class="col-md-4  mt-1">
+                      <label style="display: none" id="fecha_p"><i class="fa-solid fa-calendar-days"></i>Fecha de registro</label>
+                      <p id="fecha">
+                        
+                      </p>
+                    </div>
+                    <div class="col-md-4  mt-1">
+                      <label style="display: none" id="carrera_p"><i class="fa-solid fa-calendar-days"></i>Carrera</label>
+                      <p id="carrera">
+                        
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-6  mt-1">
+                      <label style="display: none" id="desA_p"><i class="fa-solid fa-calendar-days"></i>Tipo Admision</label>
+                      <p id="des">
+                        
+                      </p>
+                    </div>
+                    <div class="col-md-6  mt-1">
+                      <label style="display: none" id="requisitos_p"><i class="fa-solid fa-calendar-days"></i>Requisitos</label>
+                      <p id="requisitos">
+                        
+                      </p>
+                    </div>
+                                    
+                  <!---  -->
+                  
+                    <hr>
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="btn bg-gradient-primary mt-3 ">Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- -------- END HEADER 8 w/ card over right bg image ------- -->
+{% endblock content %}
+
+{% block js %}
+
+  <script> 
+    function dataSolicitud(a)
+    {
+        
+        $.ajax({
+          url: "{% url 'AJAXASolicitud' %}",
+          type: "get",
+          data: {
+              'id_solicitud': a,
+          },
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data) {
+              $.each(data, function(key, val) {
+                  
+                if(val.Error){
+                  document.getElementById('nombre_t').style.display = "none";
+                  document.getElementById('correo_p').style.display = "none";
+                  document.getElementById('cel_p').style.display = "none";
+                  document.getElementById('fecha_p').style.display = "none";
+                  document.getElementById('carrera_p').style.display = "none";
+                  document.getElementById('desA_p').style.display = "none";
+                  document.getElementById('requisitos_p').style.display = "none";
+
+                  document.getElementById('nombre').innerHTML = '';
+                  document.getElementById('correo').innerHTML = '';
+                  document.getElementById('cel').innerHTML = '';
+                  document.getElementById('fecha').innerHTML = '';
+                  document.getElementById('carrera').innerHTML = '';
+                  document.getElementById('des').innerHTML = '';
+                  document.getElementById('requisitos').innerHTML = '';
+                    alert(val.Error);
+                }else{
+                    
+                  
+                
+                  // Titulos
+                    document.getElementById('nombre_t').style.display = "block";
+                    document.getElementById('correo_p').style.display = "block";
+                    document.getElementById('cel_p').style.display = "block";
+                    document.getElementById('fecha_p').style.display = "block";
+                    document.getElementById('carrera_p').style.display = "block";
+                    document.getElementById('desA_p').style.display = "block";
+                    document.getElementById('requisitos_p').style.display = "block";
+                  // Data
+                  document.getElementById('nombre').innerHTML = val.nombres;
+                  document.getElementById('correo').innerHTML = val.correo;
+                  document.getElementById('cel').innerHTML = val.cel;
+                  document.getElementById('fecha').innerHTML = val.fecha;
+                  document.getElementById('carrera').innerHTML = val.carrera;
+                  document.getElementById('des').innerHTML = val.des_ad;
+                  document.getElementById('requisitos').innerHTML = val.requisitos;
+                  
+                }
+              });
+          },
+        
+        });
+    }  
+  </script>
+{% endblock js %}

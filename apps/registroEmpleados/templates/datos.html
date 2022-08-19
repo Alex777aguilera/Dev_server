@@ -1,0 +1,84 @@
+{% extends "principal_base.html" %}
+
+  {% block title %}
+    Data
+  {% endblock title %}
+
+{% load static %}
+
+
+{% block content %}
+
+<section class="pt-sm-8 pb-8 position-relative bg-gradient-dark ">
+ 
+  <div class="container">
+   
+   
+    
+    <div class="card">
+      <div class="card-header">
+       Tabla de datos de usuario
+      </div>
+      <div class="card-body">
+        <table id="example" class="table table-sm table-bordered table-striped table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>username</th>
+                    <th>last_login</th>
+                    <th>is_active</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+              
+              {% for u in users %}
+                
+                <tr>
+                    <td>{{u.pk}} </td>
+                    <td>{{u.username}}</td>
+                    <td>{{u.last_login}}</td>
+                    <td>{{u.is_active}}</td>
+                    
+                </tr>
+
+                {% endfor %}
+           
+            </tbody>
+            
+    </table>
+      </div>
+    </div>
+      <br><br>
+      
+    
+  </div>
+  <div class="position-absolute w-100 bottom-0 mn-n1">
+    <svg width="100%" viewBox="0 -1 1920 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>wave-up</title>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(0.000000, 5.000000)" fill="#FFFFFF" fill-rule="nonzero">
+          <g id="wave-up" transform="translate(0.000000, -5.000000)">
+            <path d="M0,70 C298.666667,105.333333 618.666667,95 960,39 C1301.33333,-17 1621.33333,-11.3333333 1920,56 L1920,165 L0,165 L0,70 Z" fill="#f8f9fa"></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+
+{% endblock content %}
+
+{% block js %}
+
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable({
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        }
+      });
+  });
+  </script>
+{% endblock js %}

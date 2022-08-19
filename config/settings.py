@@ -1,6 +1,6 @@
 import os, environ, django
 from unipath import Path
-from datetime import timedelta
+
 
 env = environ.Env(
     VALIDATE_AD = (bool, False),
@@ -38,16 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.home',
-    'apps.authentication',
+    'apps.registroEmpleados',
     'fontawesomefree',
-    # Apis
-    'corsheaders',
-    'rest_framework',
-    'drf_yasg',
-    'rest_framework_swagger',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist'
+   
 ]
 
 MIDDLEWARE = [
@@ -115,25 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Apis Structure
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -163,14 +137,6 @@ STATICFILES_DIRS = (
 )
 
 
-# Mail server
-
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django.setup()
